@@ -106,6 +106,11 @@ If nil the code below will use query=."
   :type 'hook
   :group 'sparql)
 
+(defcustom sparql-indent-line-regex "\\S-+\\s-+\\S-+;\\s-*$"
+  "Regex used to determine the column to indent to."
+  :type 'string
+  :group 'sparql)
+
 (defvar-local sparql-results-buffer nil)
 (defvar-local sparql-base-url nil)
 (defvar-local sparql-format nil)
@@ -273,7 +278,7 @@ asynchronously."
     (save-excursion
       (forward-line -1)
       (setq indent-column
-            (string-match "\\S-+\\s-+\\S-+;\\s-*$"
+            (string-match sparql-indent-line-regex
                           (thing-at-point 'line))))
     (save-excursion
       (ignore-errors
